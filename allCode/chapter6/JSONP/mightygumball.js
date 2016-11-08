@@ -32,7 +32,7 @@ function handleRefresh() {
 	}
 }
 
-function updateSales(sales) {
+function updateSales(sales) {//让别域的服务器端的js来调用这个函数
 	var salesDiv = document.getElementById("sales");
 	for (var i = 0; i < sales.length; i++) {
 		var sale = sales[i];

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>突破5m限制,查看</title>
+    <script>
+        localStorage.setItem("fuse", "-");
+        while (true) {
+            var fuse = localStorage.getItem("fuse");
+            try {
+                localStorage.setItem("fuse", fuse + fuse);
+            }
+            catch (e) {
+                alert("your browser blew up at " + fuse.length + " with exception: " + e);
+                break;
+            }
+        }
+        localStorage.clear();
+    </script>
+</head>
+
+<body> </body>
+
+</html>

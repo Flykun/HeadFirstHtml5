@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>js变量贯彻整个文档</title>
+</head>
+
+<body>
+    <script>
+        function shanchuIndex(array, index) {
+            array.splice(index, 1);
+            return array;
+        }
+        var arr = [1, 2, 3, 5, 6, 12, 32];
+        var head1 = document.createElement("h1");
+        head1.innerHTML = arr;
+        var bodyElm = document.getElementsByTagName("body")[0];
+        bodyElm.appendChild(head1);
+        shanchuIndex(arr, 2);
+        var head1 = document.createElement("h1");
+        head1.innerHTML = arr;
+        var bodyElm = document.getElementsByTagName("body")[0];
+        bodyElm.appendChild(head1);
+        var da = document.getElementsByTagName("*");
+        
+        
+        var fido = {
+            name: 'Fido'
+            , width: 20
+            , age: 0.5
+            , hobit: ['swim', 'catch', 'pupu']
+        }
+        var jsf = JSON.stringify(fido);
+        showInPage(jsf);
+
+        function showInPage(str) {
+            var head1 = document.createElement("h1");
+            head1.innerHTML = str;
+            var bodyElm = document.getElementsByTagName("body")[0];
+            bodyElm.appendChild(head1);
+        }
+        
+        function Doge(name,width,age,hobits){
+            this.name=name;
+            this.width=width;
+            this.age=age;
+            this.hobit=hobits;
+            this.info = function(){
+                showInPage(JSON.stringify(this));
+            }
+        }
+        var pepe = new Doge('pepe',30,1,['run','laungh']);
+        pepe.info();
+        
+        delete pepe.width;//delete关键字,删除属性和其值
+        pepe.info();
+        
+        
+    </script>
+</body>
+
+</html>

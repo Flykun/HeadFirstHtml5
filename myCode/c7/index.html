@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="myStyle.css">
+    <script src="myScript.js"></script>
+    <title>CANVAS DRAW</title>
+</head>
+
+<body>
+    <canvas id="tshirtCanvas" width="600px" height="300px">你的浏览器版本太低,该功能需要升级后才能使用</canvas>
+    <!--内部文字,只要使用不了canvas标签的用户才看得到-->
+    <form>
+        <p>
+            <label for="backgroundColor">Select background color:</label>
+            <select name="backgroundColorSelector" id="backgroundColor">
+                <option value="white" selected>White</option>
+                <option value="black">Black</option>
+            </select>
+        </p>
+        <p>
+            <label for="shape">Circles or squares?</label>
+            <select name="shapeSelector" id="shape">
+                <option value="none" selected>Neither</option>
+                <option value="circles">Circles</option>
+                <option value="squares">Squares</option>
+            </select>
+        </p>
+        <p>
+            <label for="foregroundColor">Select text color:</label>
+            <select name="foregroundColorSelector" id="foregroundColor">
+                <option value="black" selected>Black</option>
+                <option value="white">White</option>
+            </select>
+        </p>
+        <p>
+            <label for="tweets">Pick a tweet:</label>
+            <select name="tweetsSelector" id="tweets">
+                <option value=""></option>
+                <option value="I have a dream.">I have a dream.</option>
+                <option value="Yes,you have.">Yes,you have.</option>
+                <option value="No,you haven't.">No,you haven't.</option>
+            </select>
+        </p>
+        <p>
+            <input type="button" id="previewButton" value="Preview">
+        </p>
+    </form>
+<!--    <script src="https://twitter.com/wickedsmartly"></script>--><!--API过期-->
+</body>
+
+</html>

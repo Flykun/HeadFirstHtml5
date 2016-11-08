@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>画一个笑脸</title>
+</head>
+
+<body>
+    <canvas id="face" width="600px" height="600px">unsupport canvas</canvas>
+    <script>
+        function drawSimleyFace() {
+            var canvas = document.getElementById("face");
+            var context = canvas.getContext("2d");
+            //头
+            context.beginPath();
+            context.arc(300, 300, 200, 0, degreesToRadians(360), true);
+            context.fillStyle = "#fffccc";
+            context.fill();
+            context.stroke();
+            
+            //左眼
+            context.beginPath();
+            context.arc(200, 250, 25,0, degreesToRadians(360), true);
+            context.stroke();
+            context.beginPath();
+            context.arc(200, 250, 20,0, degreesToRadians(360), true);
+            context.stroke();
+            context.fillStyle = "black";
+            context.fill();
+            
+            //右眼
+            context.beginPath();
+            context.arc(400, 250, 25,0, degreesToRadians(360), true);
+            context.stroke();
+            context.beginPath();
+            context.arc(400, 250, 20,0, degreesToRadians(360), true);
+            context.stroke();
+            context.fillStyle = "black";
+            context.fill();
+            
+            
+            //鼻子
+            context.beginPath();
+            context.moveTo(300, 300);
+            context.lineTo(300, 350);
+            context.stroke();
+            
+            //嘴
+            context.beginPath();
+            context.arc(300,350,75,degreesToRadians(20),degreesToRadians(160),false);//false逆时针
+            context.stroke();
+        }
+
+        function degreesToRadians(degress) {
+            return (degress * Math.PI) / 180; //360°==2PI => 180/PI = 1°
+        }
+        drawSimleyFace();
+    </script>
+</body>
+
+</html>

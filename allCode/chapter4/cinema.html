@@ -1,108 +1,151 @@
 <!doctype html>
 <html lang="en">
+
 <head>
-<title>Webville Cinema</title>
-<meta charset="utf-8">
-<script>
-window.onload = function() {
-	// Version 1
-	getNextShowing(movie1);
+    <title>Webville Cinema</title>
+    <meta charset="utf-8">
+    <style>
+        ul#nextShowTime {
+            border: 1px solid #a9a9a9;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+            margin-top: 10px;
+            padding: 0px;
+            list-style-type: none;
+        }
+        
+        ul#nextShowTime li {
+            border-bottom: 1px solid #a9a9a9;
+            padding: 10px;
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#f9f9f9), to(#e3e3e3));
+            background-image: -moz-linear-gradient(#f9f9f9, #e3e3e3);
+            background-image: -ms-linear-gradient(#f9f9f9, #e3e3e3);
+            background-image: -o-linear-gradient(#f9f9f9, #e3e3e3);
+            background-image: -webkit-linear-gradient(#f9f9f9, #e3e3e3);
+            background-image: linear-gradient(#f9f9f9, #e3e3e3);
+        }
+        
+        ul#nextShowTime li:last-child {
+            -webkit-border-bottom-right-radius: 5px;
+            /*-webkit- : chrome和safari私有属性*/
+            -webkit-border-bottom-left-radius: 5px;
+            -moz-border-radius-bottomright: 5px;
+            /*-moz- :fireFox浏览器私有属性*/
+            -moz-border-radius-bottomleft: 5px;
+            border-bottom: none;
+            border-bottom-right-radius: 5px;
+            border-bottom-left-radius: 5px;
+        }
+        
+        ul#nextShowTime li:first-child {
+            /*第一个上左上右圆角*/
+            -webkit-border-top-right-radius: 5px;
+            -webkit-border-top-left-radius: 5px;
+            -moz-border-radius-topright: 5px;
+            -moz-border-radius-topleft: 5px;
+            border-top-right-radius: 5px;
+            border-top-left-radius: 5px;
+        }
+    </style>
+    <script>
+        
+        window.onload = function () {
+            // Version 1
+            getNextShowing(movie1);
+            // version 2
+            movie1.getNextShowing();
+            // version 3
+            var banzaiMovie = new Movie("Buckaroo Banzai", "Cult Classic", 5, ["1:00pm", "5:00pm", "7:00pm", "11:00pm"]);
+            //            alert(banzaiMovie.getNextShowing());
+            appendLiWithContent(banzaiMovie.getNextShowing());
+            var plan9Movie = new Movie("Plan 9 from Outer Space", "Cult Classic", 2, ["3:00pm", "7:00pm", "11:00pm"]);
+            //            alert(plan9Movie.getNextShowing());
+            appendLiWithContent(plan9Movie.getNextShowing());
+            var forbiddenPlanetMovie = new Movie("Forbidden Planet", "Classic Sci-fi", 5, ["5:00pm", "9:00pm"]);
+            //            alert(forbiddenPlanetMovie.getNextShowing());
+            appendLiWithContent(forbiddenPlanetMovie.getNextShowing());
+            
+            
+        }
 
-	// version 2
-	movie1.getNextShowing();
+        function appendLiWithContent(content) {
+            var nextShowTime = document.getElementById("nextShowTime");
+            var li = document.createElement("li");
+            li.innerHTML = content;
+            nextShowTime.appendChild(li);
+        }
 
-	// version 3
-	var banzaiMovie = new Movie("Buckaroo Banzai",
-								"Cult Classic",
-								5,
-								["1:00pm", "5:00pm", "7:00pm", "11:00pm"]);
-	alert(banzaiMovie.getNextShowing());
+        function Movie(title, genre, rating, showtimes) {
+            this.title = title;
+            this.genre = genre;
+            this.rating = rating;
+            this.showtimes = showtimes;
+            this.getNextShowing = function () {
+                var now = new Date().getTime();
+                for (var i = 0; i < this.showtimes.length; i++) {
+                    var showtime = getTimeFromString(this.showtimes[i]);
+                    if ((showtime - now) > 0) {
+                        return "Next showing of " + this.title + " is " + this.showtimes[i];
+                    }
+                }
+                return null;
+            };
+        }
+        var movie1 = {
+            title: "Plan 9 from Outer Space"
+            , genre: "Cult Classic"
+            , rating: 2
+            , showtimes: ["3:00pm", "7:00pm", "11:00pm"]
+            , getNextShowing: function () {
+                var now = new Date().getTime();
+                for (var i = 0; i < this.showtimes.length; i++) {
+                    var showtime = getTimeFromString(this.showtimes[i]);
+                    if ((showtime - now) > 0) {
+                        return "Next showing of " + this.title + " is " + this.showtimes[i];
+                    }
+                }
+            }
+        };
+        var movie2 = {
+            title: "Forbidden Planet"
+            , genre: "Classic Sci-fi"
+            , rating: 5
+            , showtimes: ["5:00pm", "9:00pm"]
+            , getNextShowing: function () {
+                var now = new Date().getTime();
+                for (var i = 0; i < this.showtimes.length; i++) {
+                    var showtime = getTimeFromString(this.showtimes[i]);
+                    if ((showtime - now) > 0) {
+                        return "Next showing of " + this.title + " is " + this.showtimes[i];
+                    }
+                }
+            }
+        };
 
-	var plan9Movie = new Movie("Plan 9 from Outer Space",
-								"Cult Classic",
-								2,
-								["3:00pm", "7:00pm", "11:00pm"]);
-	alert(plan9Movie.getNextShowing());
+        function getNextShowing(movie) {
+            var now = new Date().getTime();
+            for (var i = 0; i < movie.showtimes.length; i++) {
+                var showtime = getTimeFromString(movie.showtimes[i]);
+                if ((showtime - now) > 0) {
+                    return "Next showing of " + movie.title + " is " + movie.showtimes[i];
+                }
+            }
+            return null;
+        }
 
-	var forbiddenPlanetMovie = new Movie("Forbidden Planet",
-										"Classic Sci-fi",
-										5,
-										["5:00pm", "9:00pm"]);
-	alert(forbiddenPlanetMovie.getNextShowing());
-
-}
-
-function Movie(title, genre, rating, showtimes) {
-	this.title = title;
-	this.genre = genre;
-	this.rating = rating;
-	this.showtimes = showtimes;
-	this.getNextShowing = function() {
-		var now = new Date().getTime();
-		for (var i = 0; i < this.showtimes.length; i++) {
-			var showtime = getTimeFromString(this.showtimes[i]);
-			if ((showtime - now) > 0) {
-				return "Next showing of " + this.title + " is " + this.showtimes[i];
-			}
-		}
-		return null;
-	};
-}
-
-var movie1 = {
-	title: "Plan 9 from Outer Space",
-	genre: "Cult Classic",
-	rating: 2,
-	showtimes: ["3:00pm", "7:00pm", "11:00pm"],
-	getNextShowing: function() {
-		var now = new Date().getTime();
-		for (var i = 0; i < this.showtimes.length; i++) {
-			var showtime = getTimeFromString(this.showtimes[i]);
-			if ((showtime - now) > 0) {
-				return "Next showing of " + this.title + " is " + this.showtimes[i];
-			}
-		}
-	}
-};
-
-var movie2 = {
-	title: "Forbidden Planet",
-	genre: "Classic Sci-fi",
-	rating: 5,
-	showtimes: ["5:00pm", "9:00pm"],
-	getNextShowing: function() {
-		var now = new Date().getTime();
-		for (var i = 0; i < this.showtimes.length; i++) {
-			var showtime = getTimeFromString(this.showtimes[i]);
-			if ((showtime - now) > 0) {
-				return "Next showing of " + this.title + " is " + this.showtimes[i];
-			}
-		}
-	}
-};
-
-function getNextShowing(movie) {
-	var now = new Date().getTime();
-	for (var i = 0; i < movie.showtimes.length; i++) {
-		var showtime = getTimeFromString(movie.showtimes[i]);
-		if ((showtime - now) > 0) {
-			return "Next showing of " + movie.title + " is " + movie.showtimes[i];
-		}
-	}
-	return null;
-}
-
-function getTimeFromString(str) {
-	var theTime = new Date();
-	var time = str.match(/(\d+)(?::(\d\d))?\s*(p?)/);
-	theTime.setHours( parseInt(time[1]) + (time[3] ? 12 : 0) );
-	theTime.setMinutes( parseInt(time[2]) || 0 );
-	return theTime.getTime();
-}
-
-</script>
+        function getTimeFromString(str) {
+            var theTime = new Date();
+            var time = str.match(/(\d+)(?::(\d\d))?\s*(p?)/);//正则表达式
+            theTime.setHours(parseInt(time[1]) + (time[3] ? 12 : 0));
+            theTime.setMinutes(parseInt(time[2]) || 0);
+            return theTime.getTime();
+        }
+    </script>
 </head>
-<body>
-</body>
-</html>
 
+<body>
+    <ul id="nextShowTime"> </ul>
+</body>
+
+</html>
